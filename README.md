@@ -34,25 +34,41 @@ This project proves that you don’t need a $2,000+ GPU to run high-quality, ins
 
 ### 1. Build llama.cpp with OpenVINO
 
-```bash
 git clone https://github.com/ggml-org/llama.cpp
+
 cd llama.cpp
+
 cmake -B build-ov -DGGML_OPENVINO=ON
+
 cmake --build build-ov --parallel $(nproc)
-2. Download the Model
-Bashwget https://huggingface.co/mradermacher/Gemma-3-27B-Heretic-GGUF/resolve/main/Gemma-3-27B-Heretic.Q4_K_M.gguf
-3. Create the ruthless.sh script
+
+### 2. Download the Model
+
+wget https://huggingface.co/mradermacher/Gemma-3-27B-Heretic-GGUF/resolve/main/Gemma-3-27B-Heretic.Q4_K_M.gguf
+
+### 3. Create the ruthless.sh script
+
 See ruthless.sh in this repo.
-4. Set up systemd services
+
+### 4. Set up systemd services
+
 See the systemd/ folder.
-5. Start everything
-Bashsudo systemctl enable --now llama-server open-webui
+
+### 5. Start everything
+
+Bash sudo systemctl enable --now llama-server open-webui
+
 Open http://localhost:3000 and enjoy.
-Files in This Repo
+
+## Files in This Repo
 
 ruthless.sh — Interactive wrapper with the anti-woke system prompt
+
 systemd/llama-server.service
+
 systemd/open-webui.service
 
-License
+
+## License
+
 MIT
