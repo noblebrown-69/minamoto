@@ -1,0 +1,12 @@
+[Unit]
+Description=OpenWebUI
+After=network.target docker.service llama-server.service
+Requires=docker.service
+[Service]
+Type=simple
+ExecStart=/usr/bin/docker start -a open-webui
+ExecStop=/usr/bin/docker stop open-webui
+Restart=always
+RestartSec=5
+[Install]
+WantedBy=multi-user.target

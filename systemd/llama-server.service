@@ -1,0 +1,20 @@
+[Unit]
+Description=Gemma-3-27B-Heretic OpenVINO Server
+After=network.target
+[Service]
+Type=simple
+User=franklin
+WorkingDirectory=/home/franklin/llama.cpp
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+ExecStart=/home/franklin/llama.cpp/build-ov/bin/llama-server 
+-m /home/franklin/llama.cpp/Gemma-3-27B-Heretic.Q4_K_M.gguf 
+--host 0.0.0.0 
+--port 8080 
+-n 4096 
+--temp 0.9 
+--repeat-penalty 1.12 
+-t 16
+Restart=always
+RestartSec=5
+[Install]
+WantedBy=multi-user.target

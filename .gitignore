@@ -1,0 +1,4 @@
+*.gguf
+build-ov/
+pycache/
+.env
