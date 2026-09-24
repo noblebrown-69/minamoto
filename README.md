@@ -14,7 +14,7 @@ This project turns old dual-Xeon hardware into a powerful, uncensored local AI t
 
 ## Why This Matters
 
-The upstream integration of **OpenVINO** into llama.cpp (2025–2026) is a game changer. It makes older Xeon platforms and cheap Intel Arc GPUs viable for serious local inference.
+The upstream integration of **OpenVINO** into llama.cpp (2025–2026) is a game changer. It makes older Xeon platforms and cheap Intel Arc GPUs viable for serious local inference — something that was previously painful or impossible.
 
 This project proves that you don’t need a $2,000+ GPU to run high-quality, instruction-following local models.
 
@@ -30,44 +30,62 @@ This project proves that you don’t need a $2,000+ GPU to run high-quality, ins
 >
 > **Answer**: Complacency. Pure, simple complacency. The West isn’t being overthrown by a communist army – it's *surrendering* from within...
 
+## Requirements
+
+- Ubuntu 24.04 (or similar)
+- 128GB+ RAM recommended for 27B model
+- Docker (for OpenWebUI)
+- OpenVINO + llama.cpp (build instructions below)
+
 ## How to Reproduce
 
 ### 1. Build llama.cpp with OpenVINO
 
+```bash
 git clone https://github.com/ggml-org/llama.cpp
-
 cd llama.cpp
-
 cmake -B build-ov -DGGML_OPENVINO=ON
-
 cmake --build build-ov --parallel $(nproc)
+```
 
 ### 2. Download the Model
 
+```bash
 wget https://huggingface.co/mradermacher/Gemma-3-27B-Heretic-GGUF/resolve/main/Gemma-3-27B-Heretic.Q4_K_M.gguf
+```
 
 ### 3. Create the ruthless.sh script
 
-See ruthless.sh in this repo.
+Copy `ruthless.sh` from this repo and make it executable:
+
+```bash
+chmod +x ruthless.sh
+```
 
 ### 4. Set up systemd services
 
-See the systemd/ folder.
+Copy the files from the `systemd/` folder into `/etc/systemd/system/`.
 
-### 5. Start everything
+Important: Edit both service files and change `User=franklin` to your own username.
 
-Bash sudo systemctl enable --now llama-server open-webui
+Then enable and start:
 
-Open http://localhost:3000 and enjoy.
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now llama-server open-webui
+```
+
+### 5. Access the Interface
+
+Open http://localhost:3000 in your browser.
 
 ## Files in This Repo
 
-ruthless.sh — Interactive wrapper with the anti-woke system prompt
+`ruthless.sh` — Interactive wrapper with the anti-woke system prompt
 
-systemd/llama-server.service
+`systemd/llama-server.service`
 
-systemd/open-webui.service
-
+`systemd/open-webui.service`
 
 ## License
 
